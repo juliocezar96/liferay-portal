@@ -12,7 +12,7 @@
 
 const intervalButton = setInterval(() => {
 	main();
-}, 100);
+}, 110);
 
 const organizationStatusListing = [
 	'Rejected',
@@ -49,45 +49,65 @@ function main() {
 		updateStatusToApproved.style.display = 'block';
 	}
 
-	const updateStatus = async (key, name) => {
-		// eslint-disable-next-line @liferay/portal/no-global-fetch
-		await fetch(`/o/c/evporganizations/${organizationId}`, {
-			body: `{"organizationStatus": {  
-						"key": "${key}",
-						"name": "${name}"}
-					}`,
-			headers: {
-				'content-type': 'application/json',
-				'x-csrf-token': Liferay.authToken,
-			},
-			method: 'PATCH',
-		});
-
-		location.reload();
-	};
-
 	updateStatusToApproved.onclick = () => {
-		Liferay.Util.openConfirmModal({
-			message: 'Do you want to Approve this Organization ?',
-			onConfirm: (isConfirmed) => {
-				if (isConfirmed) {
-					updateStatus(
-						'awaitingFinanceApproval',
-						'Awaiting Finance Approval'
-					);
-				}
-			},
-		});
+		openModalDescriptionBox(
+			'awaitingFinanceApproval',
+			'Awaiting Finance Approval',
+			'Why do you approve of this Organization?'
+		);
 	};
 
 	updateStatusToReject.onclick = () => {
-		Liferay.Util.openConfirmModal({
-			message: 'Do you want to Reject this Organization ?',
-			onConfirm: (isConfirmed) => {
-				if (isConfirmed) {
-					updateStatus('rejected', 'Rejected');
-				}
-			},
-		});
+		openModalDescriptionBox(
+			'rejected',
+			'Rejected',
+			'Why did you reject this Organization?'
+		);
 	};
 }
+
+const openModalDescriptionBox = (key, name, headerText) => {
+	Liferay.Util.openModal({
+		bodyHTML:
+			'<textarea id="messageDescribed" style="word-wrap: break-word;width:100%;height: 10em;resize: none; border-style: inset;border-width: 1px;border-radius: 5px;" placeholder="Describe here..."></textarea>',
+		buttons: [
+			{
+				displayType: 'secondary',
+				label: 'Cancel',
+				type: 'cancel',
+			},
+			{
+				displayType: 'primary',
+				label: 'Send',
+				onClick() {
+					const message = document.querySelector('#messageDescribed')
+						.value;
+
+					updateStatus(key, name, message);
+				},
+				type: 'submit',
+			},
+		],
+		center: true,
+		headerHTML: headerText,
+		size: 'md',
+	});
+};
+
+const updateStatus = async (key, name, message) => {
+	// eslint-disable-next-line @liferay/portal/no-global-fetch
+	await fetch(`/o/c/evporganizations/${organizationId}`, {
+		body: `{"organizationStatus": {  
+					"key": "${key}",
+					"name": "${name}"},
+					"messageEVPManager": "${message}"},
+				}`,
+		headers: {
+			'content-type': 'application/json',
+			'x-csrf-token': Liferay.authToken,
+		},
+		method: 'PATCH',
+	});
+
+	location.reload();
+};

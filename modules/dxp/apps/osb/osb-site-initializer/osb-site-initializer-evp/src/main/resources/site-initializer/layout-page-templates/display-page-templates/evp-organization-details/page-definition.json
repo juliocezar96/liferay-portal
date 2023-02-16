@@ -72,6 +72,7 @@
 							},
 							"indexed": true,
 							"layout": {
+								"opacity": 100,
 								"widthType": "Fixed"
 							}
 						},
@@ -80,6 +81,7 @@
 								"definition": {
 									"indexed": true,
 									"layout": {
+										"opacity": 100,
 										"widthType": "Fluid"
 									}
 								},
@@ -314,8 +316,8 @@
 											},
 											"gutters": true,
 											"indexed": true,
-											"modulesPerRow": 1,
-											"numberOfColumns": 1,
+											"modulesPerRow": 2,
+											"numberOfColumns": 2,
 											"reverseOrder": false,
 											"rowViewports": [
 												{
@@ -335,7 +337,7 @@
 													}
 												}
 											],
-											"verticalAlignment": "top"
+											"verticalAlignment": "middle"
 										},
 										"pageElements": [
 											{
@@ -358,7 +360,7 @@
 															"id": "tablet"
 														}
 													],
-													"size": 12
+													"size": 6
 												},
 												"pageElements": [
 													{
@@ -382,6 +384,68 @@
 																		"text": {
 																			"mapping": {
 																				"fieldKey": "ObjectField_organizationStatus",
+																				"itemReference": {
+																					"contextSource": "DisplayPageItem"
+																				}
+																			}
+																		}
+																	}
+																}
+															],
+															"fragmentStyle": {
+																"paddingBottom": "2"
+															},
+															"indexed": true
+														},
+														"type": "Fragment"
+													}
+												],
+												"type": "Column"
+											},
+											{
+												"definition": {
+													"columnViewports": [
+														{
+															"columnViewportDefinition": {
+																"size": 12
+															},
+															"id": "landscapeMobile"
+														},
+														{
+															"columnViewportDefinition": {
+															},
+															"id": "portraitMobile"
+														},
+														{
+															"columnViewportDefinition": {
+															},
+															"id": "tablet"
+														}
+													],
+													"size": 6
+												},
+												"pageElements": [
+													{
+														"definition": {
+															"cssClasses": [
+																"evp-organization-status"
+															],
+															"fragment": {
+																"key": "DIALECT-dialect-text"
+															},
+															"fragmentConfig": {
+																"textType": "h4",
+																"truncateText": false
+															},
+															"fragmentFields": [
+																{
+																	"id": "element-text",
+																	"value": {
+																		"fragmentLink": {
+																		},
+																		"text": {
+																			"mapping": {
+																				"fieldKey": "ObjectField_messageEVPManager",
 																				"itemReference": {
 																					"contextSource": "DisplayPageItem"
 																				}
@@ -432,6 +496,7 @@
 							},
 							"indexed": true,
 							"layout": {
+								"opacity": 100,
 								"widthType": "Fixed"
 							}
 						},
@@ -483,6 +548,7 @@
 								"definition": {
 									"indexed": true,
 									"layout": {
+										"opacity": 100,
 										"widthType": "Fluid"
 									}
 								},
@@ -1686,6 +1752,7 @@
 							},
 							"indexed": true,
 							"layout": {
+								"opacity": 100,
 								"widthType": "Fixed"
 							}
 						},
@@ -1737,6 +1804,7 @@
 								"definition": {
 									"indexed": true,
 									"layout": {
+										"opacity": 100,
 										"widthType": "Fluid"
 									}
 								},
@@ -2361,6 +2429,7 @@
 							},
 							"indexed": true,
 							"layout": {
+								"opacity": 100,
 								"widthType": "Fixed"
 							}
 						},
@@ -2412,6 +2481,7 @@
 								"definition": {
 									"indexed": true,
 									"layout": {
+										"opacity": 100,
 										"widthType": "Fluid"
 									}
 								},

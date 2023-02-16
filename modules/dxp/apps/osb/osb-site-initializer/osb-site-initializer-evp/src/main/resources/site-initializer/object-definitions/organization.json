@@ -460,6 +460,24 @@
 			"indexedAsKeyword": false,
 			"indexedLanguageId": "en_US",
 			"label": {
+				"en_US": "MessageEVPManager"
+			},
+			"name": "messageEVPManager",
+			"objectFieldSettings": [
+			],
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
 				"en_US": "Country"
 			},
 			"name": "country",
