@@ -27,8 +27,10 @@
 			/]
 
 			[#list userRoles as role]
-				[#if role.name == "Administrator" || role.name == "EVP Manager" && organizationStatus == "verified" ||
-					role.name == "Finance User" && organizationStatus == "awaitingFinanceApproval"
+				[#if role.name == "Administrator" ||
+					role.name == "EVP Manager" && organizationStatus == "verified" ||
+					role.name == "Finance User" && organizationStatus == "awaitingFinanceApproval" ||
+					role.name == "Employee" && organizationStatus == "awaitingMoreInfoFromEmployee"
 				]
 
 					[@liferay_ui["icon"]
