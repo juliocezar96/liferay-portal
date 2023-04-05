@@ -56,6 +56,19 @@ const openModal = () => {
 		buttons: [
 			{
 				displayType: 'danger',
+				label: 'Need more Info',
+				async onClick() {
+					await layerForDendingUpdateStatus(
+						getMessage(),
+						getAttributeHidden(),
+						'awaitingMoreInfoFromEmployee',
+						'Awaiting More Info From Employee'
+					);
+				},
+				type: 'submit',
+			},
+			{
+				displayType: 'danger',
 				label: 'Reject',
 				async onClick() {
 					await layerForDendingUpdateStatus(
