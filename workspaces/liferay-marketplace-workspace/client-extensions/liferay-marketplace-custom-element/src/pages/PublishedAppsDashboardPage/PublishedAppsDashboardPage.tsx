@@ -16,6 +16,7 @@ import {
 	getProductSpecifications,
 	getProducts,
 	getUserAccounts,
+	getUserAccountsById,
 } from '../../utils/api';
 import {showAccountImage} from '../../utils/util';
 import {AccountDetailsPage} from '../AccountDetailsPage/AccountDetailsPage';
@@ -133,6 +134,7 @@ export function PublishedAppsDashboardPage() {
 	const [selectedNavigationItem, setSelectedNavigationItem] =
 		useState('Apps');
 	const [members, setMembers] = useState<MemberProps[]>(Array<MemberProps>());
+	const [userLogged, setUserLogged] = useState<UserAccountProps>();
 	const [selectedMember, setSelectedMember] = useState<MemberProps>();
 	const [selectedAccount, setSelectedAccount] = useState<Account>(
 		initialAccountsState[0]
@@ -429,6 +431,10 @@ export function PublishedAppsDashboardPage() {
 					}
 				);
 
+				const responseGetUserAccountsById = await getUserAccountsById();
+				const loggedInUser =  await responseGetUserAccountsById.json();
+				
+				setUserLogged(loggedInUser);
 				setMembers(filteredMembersList);
 			}
 		})();
@@ -523,6 +529,7 @@ export function PublishedAppsDashboardPage() {
 				>
 					{selectedMember ? (
 						<MemberProfile
+							userLogged={userLogged}
 							member={selectedMember}
 							setSelectedMember={setSelectedMember}
 						></MemberProfile>
