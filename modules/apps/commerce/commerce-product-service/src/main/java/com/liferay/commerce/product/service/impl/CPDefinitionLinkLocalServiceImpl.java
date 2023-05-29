@@ -151,8 +151,6 @@ public class CPDefinitionLinkLocalServiceImpl
 
 		_reindexCPDefinition(cpDefinitionId);
 
-		// Workflow
-
 		return _startWorkflowInstance(
 			user.getUserId(), cpDefinitionLink, serviceContext);
 	}
@@ -422,8 +420,6 @@ public class CPDefinitionLinkLocalServiceImpl
 			cpDefinitionLink.getCProductId());
 
 		_reindexCPDefinition(cProduct.getPublishedCPDefinitionId());
-
-		// Workflow
 
 		return _startWorkflowInstance(
 			user.getUserId(), cpDefinitionLink, serviceContext);
