@@ -7,7 +7,7 @@
 		},
 		"type": "string"
 	},
-    {
+	{
 		"key": "accountAdministrator",
 		"name": "Account Admininstrator",
 		"name_i18n": {
