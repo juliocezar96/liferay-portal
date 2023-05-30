@@ -3,9 +3,9 @@
 	"fragmentCompositionDefinitionPath": "page-definition.json",
 	"friendlyURL": "/loadingPageValidation",
 	"hidden": false,
-	"name": "MKPLoadingPageValidation",
+	"name": "loadingPageValidation",
 	"name_i18n": {
-		"en_US": "MKPLoadingPageValidation"
+		"en_US": "loadingPageValidation"
 	},
 	"permissions": [
 		{
