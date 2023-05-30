@@ -1,5 +1,7 @@
 {
 	"externalReferenceCode": "MARKETPLACE-OBJECT-DEFINITION-1",
+	"accountEntryRestricted": true,
+	"accountEntryRestrictedObjectFieldName": "r_accountToUserAdditionalInfos_accountEntryId",
 	"label": {
 		"en_US": "User Additional Info"
 	},

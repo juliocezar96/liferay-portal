@@ -18,6 +18,7 @@ const baseURL = Liferay.ThemeDisplay.getPortalURL();
 const userSessionId = Liferay.ThemeDisplay.getUserId();
 let userRoles = [];
 let userAdditionalInfosId = '';
+let sendingRole = false;
 
 const getUserAccountsById = async () => {
 	try {
@@ -107,10 +108,10 @@ const deleteRoleFromUser = async (accountId, roleId, myUserId) => {
 		);
 
 		if (response.ok) {
-			console.log(response);
+			getRolesId(accountId, myUserId);
 		} else {
 			console.error('Failed to fetch user data:', response.status);
-			getRolesId(accountId, myUserId);
+			
 		}
 	} catch (error) {
 		console.error('An error occurred:', error);
@@ -131,21 +132,25 @@ const getRolesId = async (accountId, myUserId) => {
 		);
 
 		if (response.ok) {
+			
 			const userAccountRole = await response.json();
 			userAccountRole?.items?.map((accountRoles) => {
 				if (userRoles.includes(accountRoles.name)) {
-					sendRolesApi(accountRoles.id, accountId, myUserId);
+					sendingRole = sendRolesApi(accountRoles.id, accountId, myUserId);
 				}
-			});
+			});	
+			if(sendingRole){
+				updateInviteStatus();	
+			}	
 		} else {
-			console.error('Failed to fetch user data:', response.status);
+			console.error('Failed to fetch user data:', response);
 		}
 	} catch (error) {
 		console.error('An error occurred:', error);
 	}
 };
 
-const sendRolesApi = async (roleId, accountId, userId) => {
+const sendRolesApi = async (roleId, accountId, userId) => {	
 	try {
 		const response = await fetch(
 			`${baseURL}/o/headless-admin-user/v1.0/accounts/${accountId}/account-roles/${roleId}/user-accounts/${userId}`,
@@ -159,35 +164,40 @@ const sendRolesApi = async (roleId, accountId, userId) => {
 			}
 		);
 		if (response.ok) {
-			updateInviteStatus();
+	     return true;
 		} else {
-			console.error('Failed to fetch user data:', response.status);
+			console.error('Failed to fetch user data:', response);
+
+			return false;
 		}
 	} catch (error) {
 		console.error('An error occurred:', error);
+
+		return false;
 	}
 };
 
 const updateInviteStatus = async () => {
+	console.log("1")
 	try {
 		const response = await fetch(
 			`${baseURL}/o/c/useradditionalinfos/${userAdditionalInfosId}`,
 			{
-				body: {
+				body:JSON.stringify({
 					acceptInviteStatus: true,
-				},
+				}),
 				headers: {
 					'Content-Type': 'application/json',
 					'accept': 'application/json',
 					'x-csrf-token': Liferay.authToken,
 				},
-				method: 'PATH',
+				method: 'PATCH',
 			}
 		);
 		if (response.ok) {
-			console.log(response);
+			console.log("Atualizou", response);
 		} else {
-			console.error('Failed to fetch user data:', response.status);
+			console.error('Failed to fetch user data:', response);
 		}
 	} catch (error) {
 		console.error('An error occurred:', error);

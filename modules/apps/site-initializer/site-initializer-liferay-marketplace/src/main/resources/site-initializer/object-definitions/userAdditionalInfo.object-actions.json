@@ -1,9 +1,10 @@
 [
 	{
 		"active": true,
-		"conditionExpression": "password != \" \"",
+		"conditionExpression": "mothersName != \" \"",
 		"description": "",
-		"errorMessage": {},
+		"errorMessage": {
+		},
 		"externalReferenceCode": "MARKETPLACE-OBJECT-ACTION-2",
 		"label": {
 			"en_US": "passwordUpdate"
@@ -18,9 +19,9 @@
 					"businessType": "Text",
 					"inputAsValue": true,
 					"label": {
-						"en_US": "password"
+						"en_US": "mothersName"
 					},
-					"name": "password",
+					"name": "mothersName",
 					"value": "\" \""
 				}
 			]
