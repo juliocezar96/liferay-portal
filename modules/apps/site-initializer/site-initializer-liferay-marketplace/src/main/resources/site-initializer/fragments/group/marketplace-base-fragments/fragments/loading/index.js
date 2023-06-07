@@ -15,6 +15,11 @@
 
 const baseURL = Liferay.ThemeDisplay.getPortalURL();
 const myUserId = Liferay.ThemeDisplay.getUserId();
+const accountGroups = {
+	'': 'home',
+	'MKP-CUSTOMERES-GROUP': 'customer-dashboard',
+	'MKP-PUBLISHERS-GROUP': 'publisher-dashboard',
+};
 
 const fetcher = async (url, {method = 'GET', ...options} = {}) => {
 	const response = await fetch(`${baseURL}${url}`, {
@@ -27,6 +32,10 @@ const fetcher = async (url, {method = 'GET', ...options} = {}) => {
 	});
 
 	if (response.ok) {
+		if (method === 'DELETE' || response.status === 204) {
+			return;
+		}
+
 		return response.json();
 	}
 
@@ -35,9 +44,13 @@ const fetcher = async (url, {method = 'GET', ...options} = {}) => {
 	throw new Error(response.json());
 };
 
+const getMyUserAccount = () => fetcher(
+	`/o/headless-admin-user/v1.0/my-user-account`
+)
+
 const getMyUserAditionalInfos = async () => {
 	const userAdditionalInfos = await fetcher(
-		`${baseURL}/o/c/useradditionalinfos?filter=r_userToUserAddInfo_userId eq '${myUserId}' and acceptInviteStatus eq false&nestedFields=user`
+		`/o/c/useradditionalinfos?filter=r_userToUserAddInfo_userId eq '${myUserId}' and acceptInviteStatus eq false&nestedFields=user`
 	);
 
 	return userAdditionalInfos?.items ?? [];
@@ -89,7 +102,7 @@ const getSiteURL = () => {
 };
 
 const main = async () => {
-	const userAccountContainer = document.querySelector('#user-account b');
+	const userAccountContainer = document.querySelector('#loading-fragment strong');
 
 	const userAdditionalInfos = await getMyUserAditionalInfos();
 
@@ -100,7 +113,9 @@ const main = async () => {
 
 		const userRoles = userAdditionalInfo.roles.split('/').filter(Boolean);
 
-		const [accountBrief] = userAdditionalInfo.accountBriefs ?? [];
+		const myUserAccount = await getMyUserAccount();
+
+		const [accountBrief] = myUserAccount.accountBriefs ?? [];
 		const [roleBrief] = accountBrief.roleBriefs ?? [];
 
 		if (accountBrief && userAccountContainer) {
@@ -126,7 +141,8 @@ const main = async () => {
 						})
 					);
 
-					window.location.href = `${Liferay.ThemeDisplay.getPortalURL()}${getSiteURL()}/dashboard`;
+					window.location.href = `${Liferay.ThemeDisplay.getPortalURL()}${getSiteURL()}/${accountGroups[userAdditionalInfo.accountGroup]}`;
+
 				}
 			}
 		}

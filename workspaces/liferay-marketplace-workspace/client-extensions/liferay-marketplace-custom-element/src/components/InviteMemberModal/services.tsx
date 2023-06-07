@@ -143,6 +143,7 @@ export async function callRolesApi(
 
 export async function addAdditionalInfo(
 	acceptInviteStatus: boolean,
+	accountGroupERC:string,
 	r_userToUserAddInfo_userId: number,
 	publisherName: string,
 	publisherId: number,
@@ -155,6 +156,7 @@ export async function addAdditionalInfo(
 ) {
 	const additionalInfoBody = {
 		acceptInviteStatus,
+    	accountGroupERC,
 		emailOfMember,
 		inviteURL,
 		inviterName,

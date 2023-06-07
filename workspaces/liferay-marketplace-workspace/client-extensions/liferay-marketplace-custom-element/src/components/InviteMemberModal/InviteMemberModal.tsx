@@ -30,6 +30,7 @@ import {
 	getSiteURL,
 	getUserByEmail,
 } from './services';
+import { getAccountGroup } from '../../utils/api';
 
 interface InviteMemberModalProps {
 	handleClose: () => void;
@@ -144,8 +145,18 @@ export function InviteMemberModal({
 				formFields.email
 			);
 			await addAccountRolesToUser(user);
+
+			const accountGroups  = await getAccountGroup(selectedAccount.id);
+			
+			let accountGroupERC : string = '';
+			if (accountGroups.length > 0) {        
+				accountGroupERC = accountGroups[0].externalReferenceCode;
+			
+			}
+			
 			await addAdditionalInfo(
 				false,
+        		accountGroupERC,
 				user.id,
 				selectedAccount.name,
 				selectedAccount.id,
