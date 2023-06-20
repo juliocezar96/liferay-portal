@@ -43,10 +43,6 @@ interface InviteMemberModalProps {
   selectedAccount: Account;
 }
 
-interface CheckboxRole {
-  isChecked: boolean;
-  roleName: string;
-}
 
 export function InviteMemberModal({
   handleClose,
@@ -188,6 +184,7 @@ export function InviteMemberModal({
       r_accountEntryToUserAdditionalInfo_accountEntryId: selectedAccount.id,
       r_userToUserAddInfo_userId: user.id,
       roles: getCheckedRoles(),
+      sendType:{key:"shipping", name:"Shipping"},
       userFirstName: formFields.firstName,
     });
 

@@ -35,5 +35,14 @@
 		"resourceName": "com.liferay.object.model.ObjectDefinition#[$OBJECT_DEFINITION_ID:UserAdditionalInfo$]",
 		"roleName": "User",
 		"scope": "1"
+	},
+	{
+		"actionIds": [
+			"UPDATE",
+			"VIEW"
+		],
+		"resourceName": "com.liferay.list.type.model.ListTypeDefinition",
+		"roleName": "User",
+		"scope": "1"
 	}
 ]
