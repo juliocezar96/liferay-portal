@@ -231,7 +231,7 @@ export function MembersPage({
 				/>
 			) : (
 				<DashboardPage
-					buttonMessage={isCurrentUserAdmin ? '+ New Member' : ''}
+					buttonMessage={!isCurrentUserAdmin ? '+ New Member' : ''}
 					dashboardNavigationItems={dashboardNavigationItems}
 					messages={memberMessages}
 					onButtonClick={() => setVisible(true)}
