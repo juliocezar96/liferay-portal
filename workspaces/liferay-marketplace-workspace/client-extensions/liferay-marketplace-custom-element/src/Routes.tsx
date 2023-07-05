@@ -19,7 +19,7 @@ import GetAppPage from "./pages/GetAppPage/GetAppPage";
 import { NextStepPage } from "./pages/NextStepPage/NextStepPage";
 import { PublishedAppsDashboardPage } from "./pages/PublishedAppsDashboardPage/PublishedAppsDashboardPage";
 import { PurchasedAppsDashboardPage } from "./pages/PurchasedAppsDashboardPage/PurchasedAppsDashboardPage";
-import PurchasedGetAppPage from "./pages/PurchasedGetAppPage/PurchasedGetAppPage";
+import { PurchasedGetAppPage } from "./pages/PurchasedGetAppPage/PurchasedGetAppPage";
 
 interface AppRoutesProps {
   route: string;
