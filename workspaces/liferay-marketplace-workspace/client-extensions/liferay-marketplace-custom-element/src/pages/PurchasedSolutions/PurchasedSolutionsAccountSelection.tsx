@@ -17,7 +17,9 @@ import './PurchasedSolutions.scss';
 import ClaySticker from '@clayui/sticker';
 import classNames from 'classnames';
 
-import {getChannels, getOrderTypes, postOrder} from '../../utils/api';
+import { getSiteURL } from '../../components/InviteMemberModal/services';
+import { Liferay } from '../../liferay/liferay';
+import {getChannels, getOrderTypes, getOrders, postOrder} from '../../utils/api';
 
 type Steps = {
 	page: 'accountCreation' | 'accountSelection' | 'projectCreated';
@@ -98,7 +100,32 @@ const PurchasedSolutionsAccountSelection: React.FC<
 		setOrderType(projectOrderType);
 	};
 
+	const checkOrderAndRedirect = async () => {		
+		const orders = await getOrders();
+
+		for (const order of orders.items) {
+			for (const myAccount of accounts) {
+				
+				if(order?.accountExternalReferenceCode === myAccount?.externalReferenceCode){	
+					setDisabledButton(true);
+					renderToast(
+						'You have already purchased this Product.',
+						'',
+						'danger'
+					);
+
+					// setTimeout(() => {
+					// 	window.location.href = `${Liferay.ThemeDisplay.getPortalURL()}${getSiteURL()}/solutions-marketplace`;
+					// }, 5000); 
+				}
+				
+			}
+		}
+	}
+	  
+
 	useEffect(() => {
+		checkOrderAndRedirect();
 		fetchDataAndSetState();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

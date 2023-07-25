@@ -1052,6 +1052,17 @@ export async function getListTypeDefinitionByExternalReferenceCode(
 	return await response.json();
 }
 
+export async function getOrders() {
+	const response = await fetch(
+		`${baseURL}/o/headless-commerce-admin-order/v1.0/orders`,
+		{
+			headers,
+		}
+	);
+
+	return await response.json();
+}
+
 export async function postAccountByERCUserAccountByERC(
 	accountExternalReferenceCode: string,
 	userExternalReferenceCode: string
