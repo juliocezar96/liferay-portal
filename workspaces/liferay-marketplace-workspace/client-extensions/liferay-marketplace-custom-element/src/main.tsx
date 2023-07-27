@@ -21,13 +21,14 @@ class WebComponent extends HTMLElement {
 			this.root.render(
 				<React.StrictMode>
 					<AppContextProvider gravatarAPI={GRAVATAR_API}>
-						<App route={this.getAttribute('route') || '/'} />
+						<App />
 					</AppContextProvider>
 				</React.StrictMode>
 			);
 		}
 	}
 }
+
 const ELEMENT_ID = 'liferay-marketplace-custom-element';
 
 if (!customElements.get(ELEMENT_ID)) {

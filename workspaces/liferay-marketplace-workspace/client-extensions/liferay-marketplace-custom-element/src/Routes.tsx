@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
+import {getSiteURL} from './components/InviteMemberModal/services';
 import {Liferay} from './liferay/liferay';
 import {AppCreationFlow} from './pages/AppCreationFlow/AppCreationFlow';
 import {CustomerGatePage} from './pages/CustomerGatePage/CustomerGatePage';
@@ -12,33 +15,46 @@ import {PublishedAppsDashboardPage} from './pages/PublishedAppsDashboardPage/Pub
 import {PurchasedAppsDashboardPage} from './pages/PurchasedAppsDashboardPage/PurchasedAppsDashboardPage';
 import PurchasedSolutions from './pages/PurchasedSolutions/PurchasedSolutions';
 
-interface AppRoutesProps {
-	route: string;
-}
+export default function AppRoutes() {
+	const pathUrl = (page: string) => {
+		return `${getSiteURL()}/${page}` as string;
+	};
 
-export default function AppRoutes({route}: AppRoutesProps) {
 	if (Liferay.ThemeDisplay.isSignedIn()) {
-		if (route === 'create-app') {
-			return <AppCreationFlow />;
-		}
-		else if (route === 'get-app') {
-			return <GetAppPage />;
-		}
-		else if (route === 'next-steps') {
-			return <NextStepPage />;
-		}
-		else if (route === 'purchased-apps') {
-			return <PurchasedAppsDashboardPage />;
-		}
-		else if (route === 'published-apps') {
-			return <PublishedAppsDashboardPage />;
-		}
-		else if (route === 'customer-gate') {
-			return <CustomerGatePage />;
-		}
-		else if (route === 'purchased-solutions') {
-			return <PurchasedSolutions />;
-		}
+		return (
+			<Router>
+				<Routes>
+					<Route
+						element={<AppCreationFlow />}
+						path={pathUrl('create-app')}
+					/>
+
+					<Route element={<GetAppPage />} path={pathUrl('get-app')} />
+
+					<Route element={<NextStepPage />} path="next-steps" />
+
+					<Route
+						element={<PurchasedAppsDashboardPage />}
+						path={pathUrl('customer-dashboard')}
+					/>
+
+					<Route
+						element={<PublishedAppsDashboardPage />}
+						path={pathUrl('publisher-dashboard')}
+					/>
+
+					<Route
+						element={<CustomerGatePage />}
+						path={pathUrl('customer-gate')}
+					/>
+
+					<Route
+						element={<PurchasedSolutions />}
+						path={pathUrl('purchased-solutions')}
+					/>
+				</Routes>
+			</Router>
+		);
 	}
 
 	return <></>;
