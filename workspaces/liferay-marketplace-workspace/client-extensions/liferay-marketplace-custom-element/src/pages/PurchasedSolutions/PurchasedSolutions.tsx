@@ -10,6 +10,7 @@ import ClayIcon from '@clayui/icon';
 import ClayLink from '@clayui/link';
 import {InputHTMLAttributes, useEffect, useMemo, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {Link} from 'react-router-dom';
 import {z} from 'zod';
 
 import {Header} from '../../components/Header/Header';
@@ -36,6 +37,9 @@ import fetcher from '../../services/fetcher';
 import CreatedProjectCard from './CreatedProjectCard';
 import PurchasedSolutionsAccountSelection from './PurchasedSolutionsAccountSelection';
 import {getPhones} from './PurchasedSolutionsUtil';
+import { getSiteURL } from '../../components/InviteMemberModal/services';
+import { Liferay } from '../../liferay/liferay';
+
 
 type Steps = {
 	page:
@@ -67,7 +71,7 @@ type InputProps = {
 	type?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const {origin} = window.location;
+const pageHome = `${Liferay.ThemeDisplay.getPortalURL()}${getSiteURL()}/home`;
 const externalReferenceCode = 'INDUSTRIES';
 
 const Input: React.FC<InputProps> = ({
@@ -112,6 +116,7 @@ const Input: React.FC<InputProps> = ({
 };
 
 const PurchasedSolutions: React.FC = () => {
+	
 	const queryString = window.location.search;
 
 	const urlParams = new URLSearchParams(queryString);
@@ -557,15 +562,11 @@ const PurchasedSolutions: React.FC = () => {
 										<div className="purchased-solutions-button-container">
 											<div className="align-items-center d-flex justify-content-between mb-4 w-100">
 												<div>
-													<ClayButton
-														displayType="unstyled"
-														onClick={() => {
-															window.location.href =
-																origin;
-														}}
+													<Link
+														to={pageHome}
 													>
 														Cancel
-													</ClayButton>
+													</Link>
 												</div>
 
 												<ClayButton

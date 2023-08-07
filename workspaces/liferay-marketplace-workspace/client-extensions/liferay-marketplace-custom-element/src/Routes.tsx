@@ -50,7 +50,7 @@ export default function AppRoutes() {
 
 					<Route
 						element={<PurchasedSolutions />}
-						path={pathUrl('purchased-solutions')}
+						path={pathUrl('purchase-product-form')}
 					/>
 				</Routes>
 			</Router>
