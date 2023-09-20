@@ -309,6 +309,7 @@ interface Product {
 	name: {[key: string]: string};
 	productChannels: Channel[];
 	productId: number;
+	productSpecifications:ProductSpecification[],
 	productStatus: number;
 	productType: string;
 	skus: SKU[];
@@ -361,10 +362,20 @@ type SKU = {
 	cost: number;
 	customFields?: CustomField[];
 	externalReferenceCode: string;
+	gtin?: string;
+  	height?: number;
 	id: number;
 	price: number;
+	productId?: number;
+	productName?: Record<string, string>;
+	promoPrice?: number;
+	published?: boolean;
+  	purchasable?: boolean;
 	sku: string;
 	skuOptions: {key: string; value: string}[];
+	unspsc?: string;
+  	weight?: number;
+	width?: number;
 };
 
 type ProductSpecification = {
