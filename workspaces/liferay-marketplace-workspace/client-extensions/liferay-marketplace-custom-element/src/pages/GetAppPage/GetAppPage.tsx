@@ -4,31 +4,47 @@
  */
 
 import ClayButton from '@clayui/button';
-import {useEffect, useState} from 'react';
-import {useForm} from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { getSiteURL } from "../../components/InviteMemberModal/services";
 import { Liferay } from "../../liferay/liferay";
-import { getOrderTypes, postOrder } from '../../utils/api';
+import {
+  createCart,
+  getOrderTypes,
+  patchOrderByERC,
+  postCheckoutCart,
+  postOrder,
+} from '../../utils/api';
 import { getUrlParam } from "../../utils/getUrlParam";
 import AccountSelection from "./components/AccountSelection";
 import { LicenseSelector } from "./components/LicenseSelector/index";
 import ProductCard from "./components/ProductCard";
 import { StepType } from "./enums/stepType";
 
+enum ProductFields {
+  SPECIFICATIONFREE = 'free',
+}
+
+type ProductSku = {
+  productId?: number;
+  skuId: number;
+  specification: string;
+};
+
 type StepComponent = {
-	[key in StepType]?: JSX.Element;
+  [key in StepType]?: JSX.Element;
 };
 
 type ProjectOrderType = {
-  externalReferenceCode: string,
-  id: number
-}
+  externalReferenceCode: string;
+  id: number;
+};
 
 const productCustomFields = [
-	'Github Username',
-	'Project Name',
-	'Site Initializer',
+  'Github Username',
+  'Project Name',
+  'Site Initializer',
 ];
 
 type getAppProps = {
@@ -42,24 +58,26 @@ const sectionProperties = {
   [StepType.ACCOUNT]: {
     backStep: StepType.ACCOUNT,
     nextStep: StepType.LICENSES,
-    title: "Account Selection"
+    title: "Account Selection",
   },
   [StepType.LICENSES]: {
     backStep: StepType.ACCOUNT,
     nextStep: StepType.PAYMENT,
-    title: "License Selection"
+    title: "License Selection",
   },
   [StepType.PAYMENT]: {
     backStep: StepType.LICENSES,
     nextStep: StepType.PAYMENT,
-    title: "Payment us"
-  }
+    title: "Payment us",
+  },
 };
+
 
 const GetAppFlow = () => {
 	const [step, setStep] = useState<StepType>(StepType.ACCOUNT);
 	const [showAccount, setShowAccount] = useState<Boolean>(false);
   const [orderType, setOrderType] = useState<OrderType[]>([]);
+  const [productSku, setProductSku] = useState<ProductSku>({ productId: 0, skuId: 0, specification: ""});
 
   const { getValues, setValue } = useForm<getAppProps>({
     defaultValues: {
@@ -69,6 +87,25 @@ const GetAppFlow = () => {
       sku: undefined
     }
   });
+
+  const clearAlphanumericString = (value: string) => {
+    if(value){
+      
+      return value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    }
+  };
+
+  const getProductSpecification = () => {
+    const productSpecifications = getValues('product')?.productSpecifications;
+   
+    if (productSpecifications?.length) {
+        
+      return clearAlphanumericString(productSpecifications[0]?.value?.en_US);
+    }
+       
+    return '';
+    
+  };
 
 	const onCancel = () => {
 		Liferay.Util.navigate(getSiteURL());
@@ -81,6 +118,7 @@ const GetAppFlow = () => {
 	};
 
 	const onPrevious = async (previousStep: StepType) => {
+      
 		setStep(previousStep);
 
 		return;
@@ -106,24 +144,82 @@ const GetAppFlow = () => {
     )
   };
   
-  const findOrderTypeByName = (
-		orderTypes: OrderType[],
-		nameOrderType: string
-	) => {
-		return orderTypes.find(
-			({externalReferenceCode}: OrderType) =>
-				externalReferenceCode === nameOrderType
-		);
-	};
+  const findOrderTypeByName = (orderTypes:OrderType[], nameOrderType: string) => {
+    return orderTypes.find(({ externalReferenceCode }: OrderType) => externalReferenceCode === nameOrderType);
+  };
 
+  const specification = getProductSpecification();
+   
   useEffect(() =>{
+
+     
     (async () => {
 
       const responseOrderTypes = await getOrderTypes();
       setOrderType(responseOrderTypes)
     })();
 
-  },[])
+    if (specification === ProductFields.SPECIFICATIONFREE) {
+      const productSkus = getValues('product')?.skus;
+      const skuItem = (productSkus || [])[0];     
+      const { id: skuId, productId } = skuItem;
+           
+      setProductSku({ productId, skuId, specification });
+    }  
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[specification])
+
+  const getChannelId = () => {
+
+    const productChannels = getValues('product')?.productChannels;
+
+    const channel = (productChannels || [])[0];
+
+    return channel ? channel.channelId : undefined;
+
+  };
+
+  const cartCreation = async () => {
+
+    const channelId = getChannelId();
+    const account = getValues('selectedAccount');  
+
+    const ObjCartCreation = {
+      body: {
+        accountId: account?.id,
+        cartItems: [
+        {
+          productId: productSku.productId,
+          quantity: 1,
+          skuId: productSku.skuId
+        }
+      ],
+      currencyCode: "USD"
+    },
+      channelId: Number(channelId)
+    }
+
+    const cartResponse = await createCart(ObjCartCreation)
+
+    const cartCheckoutResponse = await postCheckoutCart({
+      cartId: cartResponse.id,
+    })
+
+    const newOrderValues = {
+      orderStatus: 6,
+    };
+
+    const cartChangeStatusResponse =  await patchOrderByERC(
+      cartCheckoutResponse.orderUUID,
+      newOrderValues
+    );
+
+    if(cartChangeStatusResponse.ok){
+      window.location.href = `${Liferay.ThemeDisplay.getPortalURL()}${getSiteURL()}/next-steps?orderId=${cartCheckoutResponse.id}`;
+    }
+
+  }
 
   const customFields =
     getValues('product')?.customFields?.filter((item) =>
@@ -143,6 +239,7 @@ const GetAppFlow = () => {
 
 		return data;
 	};
+  
 
   const onsubmit = async (
     account: Account | undefined, productChannels: Channel | undefined, 
@@ -191,7 +288,7 @@ const GetAppFlow = () => {
     const productSpecifications =  getValues('product')?.productSpecifications;
     const productSku = getValues('sku');
    
-    const trialLenght =
+    const trialLength =
     productSpecifications &&
     productSpecifications?.find(
         (specification) =>
@@ -200,13 +297,30 @@ const GetAppFlow = () => {
     
     const projectOrderType = findOrderTypeByName(
 			orderType,
-			trialLenght?.value?.en_US as string
+			trialLength?.value?.en_US as string
 		);
 
     onsubmit(account, productChannels, productSku, projectOrderType)
     
   };
 
+  
+  const handleContinue = () => {
+    if (getValues('licenseSelected') === true) {
+      handleCreateOrder();
+    } else if (productSku.specification === ProductFields.SPECIFICATIONFREE) {
+      cartCreation();
+    } else {
+      onContinue(sectionProperties[step].nextStep);
+    }
+  };
+
+  const verifyLabel = () => {
+    
+    return productSku.specification === ProductFields.SPECIFICATIONFREE ? "Get App": "Continue"      
+
+  }
+    
 
   return (
     <div style={{ width: "600px" }}>
@@ -239,15 +353,11 @@ const GetAppFlow = () => {
             {sectionProperties[step].nextStep && (
               <ClayButton
                 className="ml-5"
-                onClick={() => {
-                  if (getValues("licenseSelected") === true) {
-                    handleCreateOrder();
-                  } else {
-                    onContinue(sectionProperties[step].nextStep);
-                  }
-                }}
+                disabled={getValues("selectedAccount")?.name ? false : true}
+                onClick={handleContinue}
               >
-                Continue
+               {verifyLabel()}
+                
               </ClayButton>
             )}
           </div>

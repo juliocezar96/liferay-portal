@@ -364,6 +364,7 @@ type SKU = {
 	externalReferenceCode: string;
 	id: number;
 	price: number;
+	productId?:number;
 	purchasable?: boolean;
 	sku: string;
 	skuOptions: {key: string; value: string}[];
