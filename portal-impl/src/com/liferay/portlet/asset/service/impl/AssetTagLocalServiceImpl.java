@@ -420,8 +420,8 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 		throw new NoSuchTagException(
 			StringBundler.concat(
-				"No AssetTag found for {groupId=", groupId, ", name=", name,
-				"}"));
+				"No asset tag found for group ID ", groupId, " and name \"",
+				name, "\""));
 	}
 
 	/**
