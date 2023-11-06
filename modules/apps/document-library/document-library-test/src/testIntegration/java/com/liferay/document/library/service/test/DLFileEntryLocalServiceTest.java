@@ -329,21 +329,18 @@ public class DLFileEntryLocalServiceTest {
 		dlFileEntry = updateAndApproveDLFileEntry(
 			dlFileEntry, inputStream, ddmFormValuesMap, serviceContext);
 
-		dlFileVersion = dlFileEntry.getFileVersion();
-
-		String storeFileName2 = dlFileVersion.getStoreFileName();
-
 		Assert.assertEquals("2.0", dlFileEntry.getVersion());
+
+		dlFileVersion = dlFileEntry.getFileVersion();
 
 		Assert.assertTrue(
 			DLStoreUtil.hasFile(
 				dlFileVersion.getCompanyId(), dlFileEntry.getDataRepositoryId(),
 				dlFileEntry.getName(), storeFileName1));
-
 		Assert.assertTrue(
 			DLStoreUtil.hasFile(
 				dlFileVersion.getCompanyId(), dlFileEntry.getDataRepositoryId(),
-				dlFileEntry.getName(), storeFileName2));
+				dlFileEntry.getName(), dlFileVersion.getStoreFileName()));
 	}
 
 	@Test
@@ -512,9 +509,10 @@ public class DLFileEntryLocalServiceTest {
 		DLFileVersion dlFileVersion = dlFileEntry.getLatestFileVersion(true);
 
 		String storeUUID1 = dlFileVersion.getStoreUUID();
-		String storeFileName1 = dlFileVersion.getStoreFileName();
 
 		Assert.assertNotNull(storeUUID1);
+
+		String storeFileName1 = dlFileVersion.getStoreFileName();
 
 		Assert.assertTrue(
 			DLStoreUtil.hasFile(
@@ -552,12 +550,10 @@ public class DLFileEntryLocalServiceTest {
 
 		Assert.assertNotNull(dlFileVersion.getStoreUUID());
 		Assert.assertNotEquals(storeUUID2, dlFileVersion.getStoreUUID());
-
 		Assert.assertFalse(
 			DLStoreUtil.hasFile(
 				dlFileVersion.getCompanyId(), dlFileEntry.getDataRepositoryId(),
 				dlFileEntry.getName(), storeFileName1));
-
 		Assert.assertTrue(
 			DLStoreUtil.hasFile(
 				dlFileVersion.getCompanyId(), dlFileEntry.getDataRepositoryId(),
