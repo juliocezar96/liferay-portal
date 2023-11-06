@@ -132,7 +132,8 @@ public class UserManagerImpl implements UserManager {
 		}
 		catch (PortalException portalException) {
 			throw new CharonException(
-				"Unable to delete user with id " + userId, portalException);
+				"Unable to delete user with user ID " + userId,
+				portalException);
 		}
 	}
 
