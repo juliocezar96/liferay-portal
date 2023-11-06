@@ -34,7 +34,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(service = PortalCatapult.class)
 public class PortalCatapultImpl implements PortalCatapult {
 
-	public byte[] launch(
+	public Future<byte[]> launch(
 			long companyId, Http.Method method,
 			String oAuth2ApplicationExternalReferenceCode,
 			JSONObject payloadJSONObject, String resourcePath, long userId)
@@ -67,7 +67,7 @@ public class PortalCatapultImpl implements PortalCatapult {
 
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-		Future<byte[]> future = executorService.submit(
+		return executorService.submit(
 			() -> {
 				try {
 					return _http.URLtoByteArray(options);
@@ -76,8 +76,6 @@ public class PortalCatapultImpl implements PortalCatapult {
 					return ReflectionUtil.throwException(ioException);
 				}
 			});
-
-		return future.get();
 	}
 
 	private String _getLocation(
