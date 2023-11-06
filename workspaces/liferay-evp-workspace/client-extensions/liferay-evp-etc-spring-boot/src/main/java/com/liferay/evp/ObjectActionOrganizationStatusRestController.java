@@ -33,11 +33,10 @@ public class ObjectActionOrganizationStatusRestController
 	public ResponseEntity<String> post(
 		@AuthenticationPrincipal Jwt jwt, @RequestBody String json) {
 
-		JSONObject evpOrganizationJSONObject = new JSONObject(json);
+		JSONObject jsonObject = new JSONObject(json);
 
 		JSONObject objectEntryDTOEVPOrganizationJSONObject =
-			evpOrganizationJSONObject.getJSONObject(
-				"objectEntryDTOEVPOrganization");
+			jsonObject.getJSONObject("objectEntryDTOEVPOrganization");
 
 		JSONObject responseJSONObject = get(
 			jwt,
@@ -57,7 +56,7 @@ public class ObjectActionOrganizationStatusRestController
 		JSONObject propertiesJSONObject =
 			objectEntryDTOEVPOrganizationJSONObject.getJSONObject("properties");
 
-		JSONObject evpOrganizationStatusJSONObject =
+		JSONObject organizationStatusJSONObject =
 			propertiesJSONObject.getJSONObject("organizationStatus");
 
 		JSONArray itemsJSONArray = responseJSONObject.getJSONArray("items");
@@ -65,26 +64,42 @@ public class ObjectActionOrganizationStatusRestController
 		for (int i = 0; i < itemsJSONArray.length(); i++) {
 			JSONObject itemJSONObject = itemsJSONArray.getJSONObject(i);
 
-			JSONObject evpRequestsStatusJSONObject =
-				itemJSONObject.getJSONObject("requestStatus");
+			JSONObject requestStatusJSONObject = itemJSONObject.getJSONObject(
+				"requestStatus");
 
 			if (Objects.equals(
-					evpOrganizationStatusJSONObject.getString("key"),
-					"verified")) {
+					organizationStatusJSONObject.getString("key"),
+					"rejected")) {
 
-				_setRequestStatus(
-					evpRequestsStatusJSONObject,
-					itemJSONObject.getJSONObject("requestType"));
-			}
-			else if (Objects.equals(
-						evpOrganizationStatusJSONObject.getString("key"),
-						"rejected")) {
-
-				evpRequestsStatusJSONObject.put(
+				requestStatusJSONObject.put(
 					"key", "rejected"
 				).put(
 					"name", "Rejected"
 				);
+			}
+			else if (Objects.equals(
+						organizationStatusJSONObject.getString("key"),
+						"verified")) {
+
+				JSONObject requestTypeJSONObject = itemJSONObject.getJSONObject(
+					"requestType");
+
+				if (Objects.equals(
+						requestTypeJSONObject.getString("key"), "grant")) {
+
+					requestStatusJSONObject.put(
+						"key", "awaitingApprovalOnEVP"
+					).put(
+						"name", "Awaiting Approval On EVP"
+					);
+				}
+				else {
+					requestStatusJSONObject.put(
+						"key", "awaitingApprovalOnManager"
+					).put(
+						"name", "Awaiting Approval on Manager"
+					);
+				}
 			}
 		}
 
@@ -95,29 +110,6 @@ public class ObjectActionOrganizationStatusRestController
 			).build());
 
 		return new ResponseEntity<>(json, HttpStatus.OK);
-	}
-
-	private void _setRequestStatus(
-		JSONObject evpRequestsStatusJSONObject,
-		JSONObject evpRequestTypeJSONObject) {
-
-		if (Objects.equals(
-				evpRequestTypeJSONObject.getString("key"), "grant")) {
-
-			evpRequestsStatusJSONObject.put(
-				"key", "awaitingApprovalOnEVP"
-			).put(
-				"name", "Awaiting Approval On EVP"
-			);
-
-			return;
-		}
-
-		evpRequestsStatusJSONObject.put(
-			"key", "awaitingApprovalOnManager"
-		).put(
-			"name", "Awaiting Approval on Manager"
-		);
 	}
 
 }
