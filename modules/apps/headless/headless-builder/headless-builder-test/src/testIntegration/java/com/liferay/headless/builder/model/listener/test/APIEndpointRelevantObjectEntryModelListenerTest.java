@@ -50,7 +50,6 @@ public class APIEndpointRelevantObjectEntryModelListenerTest
 					RandomTestUtil.randomString(),
 					"x" + RandomTestUtil.randomString(), false)),
 			ObjectDefinitionConstants.SCOPE_COMPANY);
-
 		_siteScopedObjectDefinition =
 			ObjectDefinitionTestUtil.publishObjectDefinition(
 				Collections.singletonList(
@@ -666,7 +665,6 @@ public class APIEndpointRelevantObjectEntryModelListenerTest
 				"headless-builder/endpoints", Http.Method.POST
 			).toString(),
 			JSONCompareMode.STRICT);
-
 		JSONAssert.assertEquals(
 			JSONUtil.put(
 				"status", "BAD_REQUEST"
