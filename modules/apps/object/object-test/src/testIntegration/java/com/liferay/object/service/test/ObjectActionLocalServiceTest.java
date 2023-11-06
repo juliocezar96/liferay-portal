@@ -478,7 +478,7 @@ public class ObjectActionLocalServiceTest {
 			objectEntry = _objectEntryLocalService.updateObjectEntry(
 				TestPropsValues.getUserId(), objectEntry.getObjectEntryId(),
 				HashMapBuilder.<String, Serializable>put(
-					"firstName", "Jane"
+					"firstName", RandomTestUtil.randomString()
 				).build(),
 				ServiceContextTestUtil.getServiceContext());
 
