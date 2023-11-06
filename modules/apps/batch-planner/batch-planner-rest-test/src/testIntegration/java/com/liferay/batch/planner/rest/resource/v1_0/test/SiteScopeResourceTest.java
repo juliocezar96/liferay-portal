@@ -179,7 +179,7 @@ public class SiteScopeResourceTest extends BaseSiteScopeResourceTestCase {
 		}
 
 		for (Group group : expectedGroups) {
-			String groupLabel;
+			String groupLabel = null;
 
 			if (Objects.equals(group.getDescriptiveName(), "Global")) {
 				groupLabel = group.getDescriptiveName();
@@ -210,7 +210,6 @@ public class SiteScopeResourceTest extends BaseSiteScopeResourceTestCase {
 		SiteScope siteScope = new SiteScope();
 
 		siteScope.setLabel(groupLabel);
-
 		siteScope.setValue(groupId);
 
 		return siteScope;
