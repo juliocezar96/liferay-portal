@@ -7,7 +7,7 @@
 	<description/>
 	<groupId>com.liferay</groupId>
 	<artifactId>com.liferay.source.formatter</artifactId>
-	<version>1.0.1355</version>
+	<version>1.0.1356</version>
 	<goalPrefix>source-formatter</goalPrefix>
 	<isolatedRealm>false</isolatedRealm>
 	<inheritedByDefault>true</inheritedByDefault>
@@ -325,7 +325,7 @@
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-utils</artifactId>
 			<type>jar</type>
-			<version>3.0.24</version>
+			<version>3.0.22</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
