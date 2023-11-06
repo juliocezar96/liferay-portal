@@ -97,9 +97,10 @@ export default function ScheduleModal({
 
 			<ClayModal.Footer
 				last={
-					<ClayButton.Group spaced>
+					<>
 						<ClayButton
 							borderless="<%= true %>"
+							className="mr-3"
 							displayType="secondary"
 							onClick={onModalClose}
 						>
@@ -108,6 +109,7 @@ export default function ScheduleModal({
 
 						{scheduled && (
 							<ClayButton
+								className="mr-3"
 								displayType="secondary"
 								onClick={publisNowButtonOnClick}
 							>
@@ -122,7 +124,7 @@ export default function ScheduleModal({
 						>
 							{Liferay.Language.get('schedule')}
 						</ClayButton>
-					</ClayButton.Group>
+					</>
 				}
 			/>
 		</ClayModal>
