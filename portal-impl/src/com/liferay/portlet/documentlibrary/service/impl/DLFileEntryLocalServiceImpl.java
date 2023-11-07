@@ -1088,19 +1088,20 @@ public class DLFileEntryLocalServiceImpl
 			dynamicQuery -> {
 				Property companyIdProperty = PropertyFactoryUtil.forName(
 					"companyId");
-				Property fileEntryIdProperty = PropertyFactoryUtil.forName(
-					"fileEntryId");
-				Property groupIdProperty = PropertyFactoryUtil.forName(
-					"groupId");
-				Property mimeTypeProperty = PropertyFactoryUtil.forName(
-					"mimeType");
-				Property repositoryIdProperty = PropertyFactoryUtil.forName(
-					"repositoryId");
-				Property statusProperty = PropertyFactoryUtil.forName("status");
 
 				dynamicQuery.add(companyIdProperty.eq(companyId));
+
+				Property groupIdProperty = PropertyFactoryUtil.forName(
+					"groupId");
+				Property repositoryIdProperty = PropertyFactoryUtil.forName(
+					"repositoryId");
+
 				dynamicQuery.add(
 					groupIdProperty.eqProperty(repositoryIdProperty));
+
+				Property mimeTypeProperty = PropertyFactoryUtil.forName(
+					"mimeType");
+
 				dynamicQuery.add(mimeTypeProperty.in(mimeTypes));
 
 				if (maximumSize >= 0) {
@@ -1120,8 +1121,14 @@ public class DLFileEntryLocalServiceImpl
 				dlFileVersionDynamicQuery.add(
 					groupIdProperty.eqProperty(repositoryIdProperty));
 				dlFileVersionDynamicQuery.add(mimeTypeProperty.in(mimeTypes));
+
+				Property statusProperty = PropertyFactoryUtil.forName("status");
+
 				dlFileVersionDynamicQuery.add(
 					statusProperty.eq(WorkflowConstants.STATUS_IN_TRASH));
+
+				Property fileEntryIdProperty = PropertyFactoryUtil.forName(
+					"fileEntryId");
 
 				dynamicQuery.add(
 					fileEntryIdProperty.notIn(dlFileVersionDynamicQuery));
