@@ -1,10 +1,7 @@
 [
 	{
 		"dataType": 16,
-		"defaultValue": [
-			"No",
-			"Yes"
-		],
+		"defaultValue": ["No", "Yes"],
 		"modelResource": "com.liferay.commerce.product.model.CPAttachmentFileEntry",
 		"name": "App Icon",
 		"properties": {
@@ -935,10 +932,7 @@
 	},
 	{
 		"dataType": 16,
-		"defaultValue": [
-			"No",
-			"Yes"
-		],
+		"defaultValue": ["No", "Yes"],
 		"modelResource": "com.liferay.commerce.product.model.CPAttachmentFileEntry",
 		"name": "Source Files",
 		"properties": {
