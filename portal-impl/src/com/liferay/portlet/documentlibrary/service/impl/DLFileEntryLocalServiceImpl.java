@@ -1085,7 +1085,6 @@ public class DLFileEntryLocalServiceImpl
 		throws PortalException {
 
 		_performDynamicQueryActions(
-			consumer,
 			dynamicQuery -> {
 				Property companyIdProperty = PropertyFactoryUtil.forName(
 					"companyId");
@@ -1126,7 +1125,8 @@ public class DLFileEntryLocalServiceImpl
 
 				dynamicQuery.add(
 					fileEntryIdProperty.notIn(dlFileVersionDynamicQuery));
-			});
+			},
+			consumer);
 	}
 
 	@Override
@@ -1136,7 +1136,6 @@ public class DLFileEntryLocalServiceImpl
 		throws PortalException {
 
 		_performDynamicQueryActions(
-			consumer,
 			dynamicQuery -> {
 				Property companyIdProperty = PropertyFactoryUtil.forName(
 					"companyId");
@@ -1158,7 +1157,8 @@ public class DLFileEntryLocalServiceImpl
 
 					dynamicQuery.add(sizeProperty.le(maximumSize));
 				}
-			});
+			},
+			consumer);
 	}
 
 	@Override
@@ -3408,16 +3408,16 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	private void _performDynamicQueryActions(
-			Consumer<DLFileEntry> actionMethod,
-			Consumer<DynamicQuery> criteriaMethod)
+			Consumer<DynamicQuery> addCriteriaMethodConsumer,
+			Consumer<DLFileEntry> performActionMethodConsumer)
 		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			getActionableDynamicQuery();
 
-		actionableDynamicQuery.setAddCriteriaMethod(criteriaMethod::accept);
+		actionableDynamicQuery.setAddCriteriaMethod(addCriteriaMethodConsumer::accept);
 		actionableDynamicQuery.setPerformActionMethod(
-			(DLFileEntry dlFileEntry) -> actionMethod.accept(dlFileEntry));
+			(DLFileEntry dlFileEntry) -> performActionMethodConsumer.accept(dlFileEntry));
 
 		actionableDynamicQuery.performActions();
 	}
