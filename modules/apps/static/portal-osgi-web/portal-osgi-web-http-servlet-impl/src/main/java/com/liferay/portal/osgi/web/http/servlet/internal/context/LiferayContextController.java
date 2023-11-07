@@ -298,8 +298,8 @@ public class LiferayContextController extends ContextController {
 
 		_checkShutdown();
 
-		ContextController.ServiceHolder<EventListener>
-			serviceHolder = new ContextController.ServiceHolder<>(
+		ContextController.ServiceHolder<EventListener> serviceHolder =
+			new ContextController.ServiceHolder<>(
 				_bundleContext.getServiceObjects(serviceReference));
 
 		EventListener eventListener = serviceHolder.get();
@@ -331,8 +331,7 @@ public class LiferayContextController extends ContextController {
 
 			ServletContext servletContext = _createServletContextAdaptor(
 				serviceHolder.getBundle(),
-				_getServletContextHelper(
-					serviceHolder.getBundle()));
+				_getServletContextHelper(serviceHolder.getBundle()));
 
 			listenerRegistration = new ListenerRegistration(
 				serviceHolder, eventListenerClasses,
@@ -473,9 +472,8 @@ public class LiferayContextController extends ContextController {
 					_getServletContextHelper(serviceHolder.getBundle());
 
 				servletRegistration = new ServletRegistration(
-					serviceHolder, servletDTO,
-					objectValuePair.getValue(), curServletContextHelper, this,
-					null);
+					serviceHolder, servletDTO, objectValuePair.getValue(),
+					curServletContextHelper, this, null);
 
 				servletRegistration.init(
 					new ServletConfigImpl(
