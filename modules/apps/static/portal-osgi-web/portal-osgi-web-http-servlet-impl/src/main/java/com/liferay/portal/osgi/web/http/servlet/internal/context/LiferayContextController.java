@@ -746,7 +746,7 @@ public class LiferayContextController extends ContextController {
 		String contextSelect = GetterUtil.getString(
 			serviceReference.getProperty(
 				HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT),
-			_DEFAULT_CONTEXT_SELECT);
+			_CONTEXT_SELECT);
 
 		if (_contextName.equals(contextSelect)) {
 			return true;
@@ -823,7 +823,7 @@ public class LiferayContextController extends ContextController {
 						HTTP_WHITEBOARD_FILTER_DISPATCHER)));
 
 		if (filterDispatcherTypes.length == 0) {
-			filterDispatcherTypes = _DEFAULT_DISPATCHERS;
+			filterDispatcherTypes = _DISPATCHER_TYPES;
 		}
 
 		for (String filterDispatcherType : filterDispatcherTypes) {
@@ -1088,11 +1088,11 @@ public class LiferayContextController extends ContextController {
 		return values;
 	}
 
-	private static final String _DEFAULT_CONTEXT_SELECT = StringBundler.concat(
+	private static final String _CONTEXT_SELECT = StringBundler.concat(
 		"(", HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME, "=",
 		HttpWhiteboardConstants.HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME, ")");
 
-	private static final String[] _DEFAULT_DISPATCHERS = {
+	private static final String[] _DISPATCHER_TYPES = {
 		DispatcherType.REQUEST.toString()
 	};
 
