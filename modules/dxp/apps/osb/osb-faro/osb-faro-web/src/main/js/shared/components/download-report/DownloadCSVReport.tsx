@@ -42,7 +42,7 @@ const DownloadCSVReport: React.FC<IDownloadReport> = ({disabled}) => {
 						) as string
 					}
 					infoMessage={Liferay.Language.get(
-						'the-individuals-list-will-be-downloaded-respecting-the-current-ordering,-filter-and-search-results.-please-verify-if-the-desired-changes-are-applied'
+						'the-individuals-list-will-be-downloaded-respecting-the-current-ordering,-filter,-and-search-results.-please-verify-if-the-desired-changes-are-applied'
 					)}
 					observer={observer}
 					onClose={() => onOpenChange(false)}
