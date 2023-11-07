@@ -334,11 +334,10 @@ public class DateFacetDisplayContextBuilder implements Serializable {
 		String from = format.format(calendar.getTime());
 
 		String rangeURL = HttpComponentsUtil.removeParameter(
-			_currentURL, _parameterName);
+			_currentURL, _paginationStartParameterName);
 
 		rangeURL = HttpComponentsUtil.removeParameter(
-			rangeURL, _paginationStartParameterName);
-
+			rangeURL, _parameterName);
 		rangeURL = HttpComponentsUtil.setParameter(
 			rangeURL, _parameterName + "From", from);
 
@@ -348,13 +347,12 @@ public class DateFacetDisplayContextBuilder implements Serializable {
 
 	private String _getLabeledRangeURL(String label) {
 		String rangeURL = HttpComponentsUtil.removeParameter(
-			_currentURL, _parameterName + "From");
+			_currentURL, _paginationStartParameterName);
 
+		rangeURL = HttpComponentsUtil.removeParameter(
+			rangeURL, _parameterName + "From");
 		rangeURL = HttpComponentsUtil.removeParameter(
 			rangeURL, _parameterName + "To");
-
-		rangeURL = HttpComponentsUtil.removeParameter(
-			rangeURL, _paginationStartParameterName);
 
 		return HttpComponentsUtil.setParameter(rangeURL, _parameterName, label);
 	}
