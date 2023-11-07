@@ -130,19 +130,24 @@ public class Main {
 			GetterUtil.getBoolean(
 				System.getenv("LIFERAY_LEARN_ETC_CRON_OFFLINE")));
 
-		String message = null;
+		String exceptionMessage = null;
 
 		try {
 			main.uploadToLiferay();
 		}
 		catch (Exception exception) {
-			message = exception.getMessage();
+			exceptionMessage = exception.getMessage();
 		}
 
-		sendSlackMessage(message);
+		sendSlackMessage(exceptionMessage);
 	}
 
-	public static void sendSlackMessage(String message) throws Exception {
+	public static void sendSlackMessage(String exceptionMessage)
+		throws Exception {
+
+		HttpPost httpPost = new HttpPost(
+			System.getenv("LIFERAY_LEARN_ETC_CRON_SLACK_ENDPOINT"));
+
 		String slackMessage = StringBundler.concat(
 			new Date(), " *", System.getenv("LCP_PROJECT_ID"), "*->*",
 			System.getenv("LCP_SERVICE_ID"), "* <https://console.",
@@ -153,31 +158,30 @@ public class Main {
 			System.getenv("LCP_SERVICE_ID"), "|", System.getenv("HOSTNAME"),
 			"> \n>");
 
-		if (Validator.isNotNull(message)) {
+		if (Validator.isNotNull(exceptionMessage)) {
 			slackMessage +=
 				":red-alert:Import job finished with return code 1\n>" +
-					message;
+					exceptionMessage;
 		}
 		else {
 			slackMessage += ":sunflower:Import job finished with return code 0";
 		}
 
-		HttpPost httpPost = new HttpPost(
-			System.getenv("LIFERAY_LEARN_ETC_CRON_SLACK_ENDPOINT"));
-
 		httpPost.setEntity(
 			new StringEntity(
 				StringBundler.concat(
-					"{\"channel\":\"",
+					"{\"channel\": \"",
 					System.getenv("LIFERAY_LEARN_ETC_CRON_SLACK_CHANNEL"),
-					"\",\"icon_emoji\":\":robot_face:\",\"text\":\"",
-					slackMessage, "\",\"username\":\"devopsbot\"}")));
+					"\", \"icon_emoji\": \":robot_face:\", \"text\": \"",
+					slackMessage, "\", \"username\": \"devopsbot\"}")));
 
 		httpPost.setHeader("Accept", "application/json");
 		httpPost.setHeader("Content-type", "application/json");
 
-		try (CloseableHttpClient closeableHttpClient = HttpClientBuilder.create(
-			).build()) {
+		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+
+		try (CloseableHttpClient closeableHttpClient =
+				httpClientBuilder.build()) {
 
 			closeableHttpClient.execute(httpPost);
 		}
@@ -425,8 +429,7 @@ public class Main {
 				System.out.println(errorMessage);
 			}
 
-			throw new Exception(
-				_errorMessages.size() + " entries in error log file");
+			throw new Exception(_errorMessages.size() + " error messages");
 		}
 	}
 
