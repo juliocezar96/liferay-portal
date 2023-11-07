@@ -30,16 +30,14 @@ public class IndexableActionableDynamicQueryTest {
 
 	@Before
 	public void setUp() {
-		_indexerRegistryServiceRegistration = _bundleContext.registerService(
-			IndexerRegistry.class, Mockito.mock(IndexerRegistry.class), null);
 		_indexWriterHelperServiceRegistration = _bundleContext.registerService(
 			IndexWriterHelper.class, indexWriterHelper, null);
+		_indexerRegistryServiceRegistration = _bundleContext.registerService(
+			IndexerRegistry.class, Mockito.mock(IndexerRegistry.class), null);
 		_portalExecutorManagerServiceRegistration =
 			_bundleContext.registerService(
 				PortalExecutorManager.class,
 				Mockito.mock(PortalExecutorManager.class), null);
-
-		indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
 
 		IndexerRegistry indexerRegistry = Mockito.mock(IndexerRegistry.class);
 
@@ -52,9 +50,9 @@ public class IndexableActionableDynamicQueryTest {
 
 	@After
 	public void tearDown() {
-		_portalExecutorManagerServiceRegistration.unregister();
 		_indexWriterHelperServiceRegistration.unregister();
 		_indexerRegistryServiceRegistration.unregister();
+		_portalExecutorManagerServiceRegistration.unregister();
 	}
 
 	@Test
@@ -96,7 +94,8 @@ public class IndexableActionableDynamicQueryTest {
 	protected Document document1 = Mockito.mock(Document.class);
 	protected Document document2 = Mockito.mock(Document.class);
 	protected Document document3 = Mockito.mock(Document.class);
-	protected IndexableActionableDynamicQuery indexableActionableDynamicQuery;
+	protected IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+		new IndexableActionableDynamicQuery();
 	protected IndexWriterHelper indexWriterHelper = Mockito.mock(
 		IndexWriterHelper.class);
 
