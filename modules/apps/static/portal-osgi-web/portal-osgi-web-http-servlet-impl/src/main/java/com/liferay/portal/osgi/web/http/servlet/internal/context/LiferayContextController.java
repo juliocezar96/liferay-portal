@@ -1035,30 +1035,6 @@ public class LiferayContextController extends ContextController {
 		List<String> objectClasses = StringPlus.asList(
 			serviceReference.getProperty(Constants.OBJECTCLASS));
 
-		if (objectClasses.contains(ServletContextListener.class.getName())) {
-			eventListenerClasses.add(ServletContextListener.class);
-		}
-
-		if (objectClasses.contains(
-				ServletContextAttributeListener.class.getName())) {
-
-			eventListenerClasses.add(ServletContextAttributeListener.class);
-		}
-
-		if (objectClasses.contains(ServletRequestListener.class.getName())) {
-			eventListenerClasses.add(ServletRequestListener.class);
-		}
-
-		if (objectClasses.contains(
-				ServletRequestAttributeListener.class.getName())) {
-
-			eventListenerClasses.add(ServletRequestAttributeListener.class);
-		}
-
-		if (objectClasses.contains(HttpSessionListener.class.getName())) {
-			eventListenerClasses.add(HttpSessionListener.class);
-		}
-
 		if (objectClasses.contains(
 				HttpSessionAttributeListener.class.getName())) {
 
@@ -1067,6 +1043,30 @@ public class LiferayContextController extends ContextController {
 
 		if (objectClasses.contains(HttpSessionIdListener.class.getName())) {
 			eventListenerClasses.add(HttpSessionIdListener.class);
+		}
+
+		if (objectClasses.contains(HttpSessionListener.class.getName())) {
+			eventListenerClasses.add(HttpSessionListener.class);
+		}
+
+		if (objectClasses.contains(
+				ServletContextAttributeListener.class.getName())) {
+
+			eventListenerClasses.add(ServletContextAttributeListener.class);
+		}
+
+		if (objectClasses.contains(ServletContextListener.class.getName())) {
+			eventListenerClasses.add(ServletContextListener.class);
+		}
+
+		if (objectClasses.contains(
+				ServletRequestAttributeListener.class.getName())) {
+
+			eventListenerClasses.add(ServletRequestAttributeListener.class);
+		}
+
+		if (objectClasses.contains(ServletRequestListener.class.getName())) {
+			eventListenerClasses.add(ServletRequestListener.class);
 		}
 
 		return eventListenerClasses;
