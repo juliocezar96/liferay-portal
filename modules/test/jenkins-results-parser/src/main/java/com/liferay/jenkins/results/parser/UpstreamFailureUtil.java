@@ -121,6 +121,8 @@ public class UpstreamFailureUtil {
 			return null;
 		}
 
+		int buildCount = 0;
+
 		String upstreamBranchName = topLevelBuild.getBranchName();
 
 		if (topLevelBuild instanceof PullRequestSubrepositoryTopLevelBuild) {
@@ -136,8 +138,6 @@ public class UpstreamFailureUtil {
 		GitWorkingDirectory gitWorkingDirectory =
 			GitWorkingDirectoryFactory.newGitWorkingDirectory(
 				upstreamBranchName, (File)null, "liferay-portal");
-
-		int buildCount = 0;
 
 		for (TestrayBuild testrayBuild : testrayRoutine.getTestrayBuilds()) {
 			if (buildCount > 25) {
