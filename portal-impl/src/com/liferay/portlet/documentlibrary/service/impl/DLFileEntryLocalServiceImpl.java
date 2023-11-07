@@ -1113,10 +1113,6 @@ public class DLFileEntryLocalServiceImpl
 				DynamicQuery dlFileVersionDynamicQuery =
 					_dlFileVersionLocalService.dynamicQuery();
 
-				dlFileVersionDynamicQuery.setProjection(
-					ProjectionFactoryUtil.distinct(
-						ProjectionFactoryUtil.property("fileEntryId")));
-
 				dlFileVersionDynamicQuery.add(companyIdProperty.eq(companyId));
 				dlFileVersionDynamicQuery.add(
 					groupIdProperty.eqProperty(repositoryIdProperty));
@@ -1126,6 +1122,10 @@ public class DLFileEntryLocalServiceImpl
 
 				dlFileVersionDynamicQuery.add(
 					statusProperty.eq(WorkflowConstants.STATUS_IN_TRASH));
+
+				dlFileVersionDynamicQuery.setProjection(
+					ProjectionFactoryUtil.distinct(
+						ProjectionFactoryUtil.property("fileEntryId")));
 
 				Property fileEntryIdProperty = PropertyFactoryUtil.forName(
 					"fileEntryId");
