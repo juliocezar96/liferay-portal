@@ -105,11 +105,11 @@ public class UserAnalyticsDXPEntityBatchEngineTaskItemDelegate
 			userTableAlias
 		);
 
+		Predicate predicate = null;
+
 		AnalyticsConfiguration analyticsConfiguration =
 			_analyticsConfigurationRegistry.getAnalyticsConfiguration(
 				companyId);
-
-		Predicate predicate = null;
 
 		if (!analyticsConfiguration.syncAllContacts()) {
 			String[] syncedOrganizationIds =
@@ -166,11 +166,11 @@ public class UserAnalyticsDXPEntityBatchEngineTaskItemDelegate
 			userTableAlias
 		);
 
+		Predicate predicate = null;
+
 		AnalyticsConfiguration analyticsConfiguration =
 			_analyticsConfigurationRegistry.getAnalyticsConfiguration(
 				companyId);
-
-		Predicate predicate = null;
 
 		if (!analyticsConfiguration.syncAllContacts()) {
 			String[] syncedOrganizationIds =
