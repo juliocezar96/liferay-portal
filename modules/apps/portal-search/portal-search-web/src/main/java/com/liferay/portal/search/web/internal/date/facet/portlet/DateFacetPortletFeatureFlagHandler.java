@@ -31,7 +31,7 @@ public class DateFacetPortletFeatureFlagHandler implements FeatureFlagListener {
 	protected void activate(ComponentContext componentContext) {
 		_componentContext = componentContext;
 
-		_enable(FeatureFlagManagerUtil.isEnabled("LPS-153839"));
+		//_enable(FeatureFlagManagerUtil.isEnabled("LPS-153839"));
 	}
 
 	private void _enable(boolean enabled) {
