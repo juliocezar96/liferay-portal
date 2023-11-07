@@ -336,8 +336,7 @@ public class DateFacetDisplayContextBuilder implements Serializable {
 		String rangeURL = HttpComponentsUtil.removeParameter(
 			_currentURL, _paginationStartParameterName);
 
-		rangeURL = HttpComponentsUtil.removeParameter(
-			rangeURL, _parameterName);
+		rangeURL = HttpComponentsUtil.removeParameter(rangeURL, _parameterName);
 		rangeURL = HttpComponentsUtil.setParameter(
 			rangeURL, _parameterName + "From", from);
 
