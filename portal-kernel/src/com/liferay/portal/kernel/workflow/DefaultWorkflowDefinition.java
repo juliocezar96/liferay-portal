@@ -132,6 +132,10 @@ public class DefaultWorkflowDefinition
 		_content = content;
 	}
 
+	public void setContentAsXML(String contentAsXML) {
+		_contentAsXML = contentAsXML;
+	}
+
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
@@ -186,13 +190,10 @@ public class DefaultWorkflowDefinition
 		_workflowTransitions = workflowTransitions;
 	}
 
-	public void setContentAsXML(String contentAsXML) {
-		_contentAsXML = contentAsXML;
-	}
-
 	private boolean _active;
 	private long _companyId;
 	private String _content;
+	private String _contentAsXML;
 	private Date _createDate;
 	private String _description;
 	private InputStream _inputStream;
@@ -206,6 +207,5 @@ public class DefaultWorkflowDefinition
 	private long _workflowDefinitionId;
 	private List<WorkflowNode> _workflowNodes;
 	private List<WorkflowTransition> _workflowTransitions;
-	private String _contentAsXML;
 
 }
