@@ -111,10 +111,6 @@ public class KaleoDefinitionLocalServiceImpl
 
 		// Kaleo definition
 
-		User user = _userLocalService.getUser(
-			serviceContext.getGuestOrUserId());
-		Date date = new Date();
-
 		long kaleoDefinitionId = counterLocalService.increment();
 
 		KaleoDefinition kaleoDefinition = kaleoDefinitionPersistence.create(
@@ -122,9 +118,16 @@ public class KaleoDefinitionLocalServiceImpl
 
 		kaleoDefinition.setGroupId(
 			_staging.getLiveGroupId(serviceContext.getScopeGroupId()));
+
+		User user = _userLocalService.getUser(
+			serviceContext.getGuestOrUserId());
+
 		kaleoDefinition.setCompanyId(user.getCompanyId());
 		kaleoDefinition.setUserId(user.getUserId());
 		kaleoDefinition.setUserName(user.getFullName());
+
+		Date date = new Date();
+
 		kaleoDefinition.setCreateDate(date);
 		kaleoDefinition.setModifiedDate(date);
 		kaleoDefinition.setName(name);
