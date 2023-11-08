@@ -3397,7 +3397,7 @@ public class KaleoDefinitionPersistenceImpl
 				KaleoDefinitionModelImpl cachedKaleoDefinitionModelImpl =
 					(KaleoDefinitionModelImpl)cachedKaleoDefinition;
 
-				kaleoDefinitionModelImpl.setXmlContent(
+				kaleoDefinitionModelImpl.setContentAsXML(
 					cachedKaleoDefinitionModelImpl.getContentAsXML());
 			}
 		}

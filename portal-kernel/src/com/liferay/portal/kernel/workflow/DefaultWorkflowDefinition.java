@@ -186,8 +186,8 @@ public class DefaultWorkflowDefinition
 		_workflowTransitions = workflowTransitions;
 	}
 
-	public void setXmlContent(String xmlContent) {
-		_contentAsXML = xmlContent;
+	public void setContentAsXML(String contentAsXML) {
+		_contentAsXML = contentAsXML;
 	}
 
 	private boolean _active;

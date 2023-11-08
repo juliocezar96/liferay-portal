@@ -180,7 +180,7 @@ public class KaleoDefinitionCacheModel
 
 		kaleoDefinitionImpl.resetOriginalValues();
 
-		kaleoDefinitionImpl.setXmlContent(_xmlContent);
+		kaleoDefinitionImpl.setContentAsXML(_contentAsXML);
 
 		return kaleoDefinitionImpl;
 	}
@@ -213,7 +213,7 @@ public class KaleoDefinitionCacheModel
 
 		active = objectInput.readBoolean();
 
-		_xmlContent = (String)objectInput.readObject();
+		_contentAsXML = (String)objectInput.readObject();
 	}
 
 	@Override
@@ -279,7 +279,7 @@ public class KaleoDefinitionCacheModel
 
 		objectOutput.writeBoolean(active);
 
-		objectOutput.writeObject(_xmlContent);
+		objectOutput.writeObject(_contentAsXML);
 	}
 
 	public long mvccVersion;
@@ -298,6 +298,6 @@ public class KaleoDefinitionCacheModel
 	public String scope;
 	public int version;
 	public boolean active;
-	public String _xmlContent;
+	public String _contentAsXML;
 
 }

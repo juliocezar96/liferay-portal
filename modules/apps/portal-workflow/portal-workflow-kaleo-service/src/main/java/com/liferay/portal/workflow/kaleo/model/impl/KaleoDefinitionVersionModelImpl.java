@@ -887,7 +887,7 @@ public class KaleoDefinitionVersionModelImpl
 		return null;
 	}
 
-	public void setXmlContent(String xmlContent) {
+	public void setContentAsXML(String contentAsXML) {
 	}
 
 	@Override
@@ -1237,7 +1237,7 @@ public class KaleoDefinitionVersionModelImpl
 
 		_setModifiedDate = false;
 
-		setXmlContent(null);
+		setContentAsXML(null);
 
 		_columnBitmask = 0;
 	}
@@ -1356,7 +1356,7 @@ public class KaleoDefinitionVersionModelImpl
 			kaleoDefinitionVersionCacheModel.statusDate = Long.MIN_VALUE;
 		}
 
-		setXmlContent(null);
+		setContentAsXML(null);
 
 		kaleoDefinitionVersionCacheModel._contentAsXML = getContentAsXML();
 

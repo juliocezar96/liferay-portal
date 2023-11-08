@@ -1614,7 +1614,7 @@ public class KaleoDefinitionVersionPersistenceImpl
 						(KaleoDefinitionVersionModelImpl)
 							cachedKaleoDefinitionVersion;
 
-				kaleoDefinitionVersionModelImpl.setXmlContent(
+				kaleoDefinitionVersionModelImpl.setContentAsXML(
 					cachedKaleoDefinitionVersionModelImpl.getContentAsXML());
 			}
 		}

@@ -789,7 +789,7 @@ public class KaleoDefinitionModelImpl
 		return null;
 	}
 
-	public void setXmlContent(String xmlContent) {
+	public void setContentAsXML(String contentAsXML) {
 	}
 
 	public long getColumnBitmask() {
@@ -1050,7 +1050,7 @@ public class KaleoDefinitionModelImpl
 
 		_setModifiedDate = false;
 
-		setXmlContent(null);
+		setContentAsXML(null);
 
 		_columnBitmask = 0;
 	}
@@ -1142,7 +1142,7 @@ public class KaleoDefinitionModelImpl
 
 		kaleoDefinitionCacheModel.active = isActive();
 
-		setXmlContent(null);
+		setContentAsXML(null);
 
 		kaleoDefinitionCacheModel._contentAsXML = getContentAsXML();
 

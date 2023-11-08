@@ -27,7 +27,7 @@ KaleoDefinition kaleoDefinition = kaleoDesignerDisplayContext.getKaleoDefinition
 
 String name = BeanParamUtil.getString(kaleoDefinitionVersion, request, "name");
 String draftVersion = BeanParamUtil.getString(kaleoDefinitionVersion, request, "version");
-String content = BeanParamUtil.getString(kaleoDefinitionVersion, request, "xmlContent");
+String content = BeanParamUtil.getString(kaleoDefinitionVersion, request, "contentAsXML");
 
 String latestDraftVersion = StringPool.BLANK;
 int version = 0;
