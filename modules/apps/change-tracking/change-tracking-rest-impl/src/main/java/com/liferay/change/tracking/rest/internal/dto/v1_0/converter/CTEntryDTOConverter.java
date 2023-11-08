@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistry;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -101,11 +102,11 @@ public class CTEntryDTOConverter
 				changeType = _language.get(
 					dtoConverterContext.getLocale(),
 					CTConstants.getCTChangeTypeLabel(
-						Integer.valueOf(document.get("changeType"))));
+						GetterUtil.getInteger(document.get("changeType"))));
 				ctCollectionId = ctEntry.getCtCollectionId();
 				dateCreated = ctEntry.getCreateDate();
 				dateModified = ctEntry.getModifiedDate();
-				hideable = Boolean.valueOf(document.get("hideable"));
+				hideable = GetterUtil.getBoolean(document.get("hideable"));
 				id = ctEntry.getCtEntryId();
 				modelClassNameId = ctEntry.getModelClassNameId();
 				modelClassPK = ctEntry.getModelClassPK();
