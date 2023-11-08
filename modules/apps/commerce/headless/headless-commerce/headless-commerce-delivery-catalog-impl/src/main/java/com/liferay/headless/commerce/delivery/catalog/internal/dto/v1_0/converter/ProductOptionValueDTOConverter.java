@@ -111,7 +111,6 @@ public class ProductOptionValueDTOConverter
 					cpDefinitionOptionRel.getCPDefinitionOptionRelId();
 				quantity = String.valueOf(
 					cpDefinitionOptionValueRel.getQuantity());
-
 				skuId =
 					(cpInstance == null) ? null : cpInstance.getCPInstanceId();
 				unitOfMeasureKey =

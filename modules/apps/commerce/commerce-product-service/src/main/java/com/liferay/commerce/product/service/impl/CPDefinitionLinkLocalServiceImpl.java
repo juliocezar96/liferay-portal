@@ -639,17 +639,11 @@ public class CPDefinitionLinkLocalServiceImpl
 			}
 		}
 
-		// Commerce product definition link
-
 		cpDefinitionLinkPersistence.remove(cpDefinitionLink);
-
-		// Asset
 
 		_assetEntryLocalService.deleteEntry(
 			CPDefinitionLink.class.getName(),
 			cpDefinitionLink.getCPDefinitionLinkId());
-
-		// Expando
 
 		_expandoRowLocalService.deleteRows(
 			cpDefinitionLink.getCPDefinitionLinkId());

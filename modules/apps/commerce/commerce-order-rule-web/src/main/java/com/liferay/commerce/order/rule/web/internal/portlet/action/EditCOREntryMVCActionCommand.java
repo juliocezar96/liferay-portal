@@ -49,11 +49,11 @@ public class EditCOREntryMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		long corEntryId = ParamUtil.getLong(actionRequest, "corEntryId");
-
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
+			long corEntryId = ParamUtil.getLong(actionRequest, "corEntryId");
+
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				boolean active = ParamUtil.getBoolean(actionRequest, "active");
 				String description = ParamUtil.getString(
