@@ -25,6 +25,8 @@ public interface WorkflowDefinition extends WorkflowModel {
 
 	public String getContent();
 
+	public String getContentAsXML();
+
 	public default Date getCreateDate() {
 		return null;
 	}
@@ -64,8 +66,6 @@ public interface WorkflowDefinition extends WorkflowModel {
 	public List<WorkflowNode> getWorkflowNodes();
 
 	public List<WorkflowTransition> getWorkflowTransitions();
-
-	public String getContentAsXML();
 
 	public boolean isActive();
 

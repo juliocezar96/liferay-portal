@@ -33,6 +33,10 @@ public class DefaultWorkflowDefinition
 		return _content;
 	}
 
+	public String getContentAsXML() {
+		return _xmlContent;
+	}
+
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -109,10 +113,6 @@ public class DefaultWorkflowDefinition
 	@Override
 	public List<WorkflowTransition> getWorkflowTransitions() {
 		return _workflowTransitions;
-	}
-
-	public String getContentAsXML() {
-		return _xmlContent;
 	}
 
 	@Override

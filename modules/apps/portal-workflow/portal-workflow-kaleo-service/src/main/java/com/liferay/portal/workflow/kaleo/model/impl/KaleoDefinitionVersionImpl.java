@@ -24,21 +24,6 @@ import com.liferay.portal.workflow.kaleo.service.KaleoNodeLocalServiceUtil;
 public class KaleoDefinitionVersionImpl extends KaleoDefinitionVersionBaseImpl {
 
 	@Override
-	public KaleoDefinition getKaleoDefinition() throws PortalException {
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setCompanyId(getCompanyId());
-
-		return KaleoDefinitionLocalServiceUtil.getKaleoDefinition(
-			getName(), serviceContext);
-	}
-
-	@Override
-	public KaleoNode getKaleoStartNode() throws PortalException {
-		return KaleoNodeLocalServiceUtil.getKaleoNode(getStartKaleoNodeId());
-	}
-
-	@Override
 	public String getContentAsXML() {
 		if (_xmlContent != null) {
 			return _xmlContent;
@@ -52,6 +37,21 @@ public class KaleoDefinitionVersionImpl extends KaleoDefinitionVersionBaseImpl {
 		}
 
 		return _xmlContent;
+	}
+
+	@Override
+	public KaleoDefinition getKaleoDefinition() throws PortalException {
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setCompanyId(getCompanyId());
+
+		return KaleoDefinitionLocalServiceUtil.getKaleoDefinition(
+			getName(), serviceContext);
+	}
+
+	@Override
+	public KaleoNode getKaleoStartNode() throws PortalException {
+		return KaleoNodeLocalServiceUtil.getKaleoNode(getStartKaleoNodeId());
 	}
 
 	protected int getVersion(String version) {

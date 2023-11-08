@@ -21,14 +21,6 @@ import java.util.List;
 public class KaleoDefinitionImpl extends KaleoDefinitionBaseImpl {
 
 	@Override
-	public List<KaleoDefinitionVersion> getKaleoDefinitionVersions()
-		throws PortalException {
-
-		return KaleoDefinitionVersionLocalServiceUtil.
-			getKaleoDefinitionVersions(getCompanyId(), getName());
-	}
-
-	@Override
 	public String getContentAsXML() {
 		if (_xmlContent != null) {
 			return _xmlContent;
@@ -42,6 +34,14 @@ public class KaleoDefinitionImpl extends KaleoDefinitionBaseImpl {
 		}
 
 		return _xmlContent;
+	}
+
+	@Override
+	public List<KaleoDefinitionVersion> getKaleoDefinitionVersions()
+		throws PortalException {
+
+		return KaleoDefinitionVersionLocalServiceUtil.
+			getKaleoDefinitionVersions(getCompanyId(), getName());
 	}
 
 	@CacheField(propagateToInterface = true)
