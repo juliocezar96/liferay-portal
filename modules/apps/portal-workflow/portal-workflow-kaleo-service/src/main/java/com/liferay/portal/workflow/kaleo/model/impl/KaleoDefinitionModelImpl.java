@@ -785,7 +785,7 @@ public class KaleoDefinitionModelImpl
 			this.<Boolean>getColumnOriginalValue("active_"));
 	}
 
-	public String getXmlContent() {
+	public String getContentAsXML() {
 		return null;
 	}
 
@@ -1144,7 +1144,7 @@ public class KaleoDefinitionModelImpl
 
 		setXmlContent(null);
 
-		kaleoDefinitionCacheModel._xmlContent = getXmlContent();
+		kaleoDefinitionCacheModel._xmlContent = getContentAsXML();
 
 		return kaleoDefinitionCacheModel;
 	}

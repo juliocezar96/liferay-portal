@@ -353,7 +353,7 @@ public class WorkflowDefinitionResourceImpl
 				setContent(
 					() -> {
 						if (StringUtil.equalsIgnoreCase(contentFormat, "xml")) {
-							return workflowDefinition.getXmlContent();
+							return workflowDefinition.getContentAsXML();
 						}
 
 						return workflowDefinition.getContent();

@@ -57,6 +57,6 @@ public interface KaleoDefinitionVersion
 	public KaleoNode getKaleoStartNode()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public String getXmlContent();
+	public String getContentAsXML();
 
 }

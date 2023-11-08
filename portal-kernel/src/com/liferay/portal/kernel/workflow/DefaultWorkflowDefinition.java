@@ -111,7 +111,7 @@ public class DefaultWorkflowDefinition
 		return _workflowTransitions;
 	}
 
-	public String getXmlContent() {
+	public String getContentAsXML() {
 		return _xmlContent;
 	}
 

@@ -78,7 +78,7 @@ public class KaleoDefinitionCTDisplayRenderer
 		KaleoDefinition kaleoDefinition = displayContext.getModel();
 
 		return StringBundler.concat(
-			"<pre>", HtmlUtil.escapeAttribute(kaleoDefinition.getXmlContent()),
+			"<pre>", HtmlUtil.escapeAttribute(kaleoDefinition.getContentAsXML()),
 			"</pre>");
 	}
 

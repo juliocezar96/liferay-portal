@@ -883,7 +883,7 @@ public class KaleoDefinitionVersionModelImpl
 		_statusDate = statusDate;
 	}
 
-	public String getXmlContent() {
+	public String getContentAsXML() {
 		return null;
 	}
 
@@ -1358,7 +1358,7 @@ public class KaleoDefinitionVersionModelImpl
 
 		setXmlContent(null);
 
-		kaleoDefinitionVersionCacheModel._xmlContent = getXmlContent();
+		kaleoDefinitionVersionCacheModel._xmlContent = getContentAsXML();
 
 		return kaleoDefinitionVersionCacheModel;
 	}

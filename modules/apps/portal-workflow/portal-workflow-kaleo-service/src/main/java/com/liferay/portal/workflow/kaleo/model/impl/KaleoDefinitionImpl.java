@@ -29,7 +29,7 @@ public class KaleoDefinitionImpl extends KaleoDefinitionBaseImpl {
 	}
 
 	@Override
-	public String getXmlContent() {
+	public String getContentAsXML() {
 		if (_xmlContent != null) {
 			return _xmlContent;
 		}

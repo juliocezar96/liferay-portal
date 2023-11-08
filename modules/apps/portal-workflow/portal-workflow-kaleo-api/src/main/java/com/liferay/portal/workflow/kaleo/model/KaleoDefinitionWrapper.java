@@ -423,8 +423,8 @@ public class KaleoDefinitionWrapper
 	}
 
 	@Override
-	public String getXmlContent() {
-		return model.getXmlContent();
+	public String getContentAsXML() {
+		return model.getContentAsXML();
 	}
 
 	/**

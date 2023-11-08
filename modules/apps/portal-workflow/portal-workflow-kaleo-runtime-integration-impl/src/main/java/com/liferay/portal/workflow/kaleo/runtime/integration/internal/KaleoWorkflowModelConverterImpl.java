@@ -156,7 +156,7 @@ public class KaleoWorkflowModelConverterImpl
 		}
 
 		defaultWorkflowDefinition.setXmlContent(
-			kaleoDefinition.getXmlContent());
+			kaleoDefinition.getContentAsXML());
 
 		return defaultWorkflowDefinition;
 	}
@@ -230,7 +230,7 @@ public class KaleoWorkflowModelConverterImpl
 			_getWorkflowTransitions(
 				kaleoDefinitionVersion.getKaleoDefinitionVersionId()));
 		defaultWorkflowDefinition.setXmlContent(
-			kaleoDefinitionVersion.getXmlContent());
+			kaleoDefinitionVersion.getContentAsXML());
 
 		return defaultWorkflowDefinition;
 	}
